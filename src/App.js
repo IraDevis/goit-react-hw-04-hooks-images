@@ -1,4 +1,4 @@
-// import { Component, useEffect } from "react";
+// import { Component } from "react";
 import { useState, useEffect } from "react";
 import Searchbar from "./components/Searchbar";
 import ImageGallery from "./components/ImageGallery";
