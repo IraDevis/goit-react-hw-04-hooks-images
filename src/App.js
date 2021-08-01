@@ -1,14 +1,41 @@
 import { Component } from "react";
+// import { useState, useEffect, useRef } from "react";
 import Searchbar from "./components/Searchbar";
 import ImageGallery from "./components/ImageGallery";
 import Button from "./components/Button";
 import Loader from "./components/Loader";
 import Modal from "./components/Modal";
 
-import imageAPI from "./Services/ImagesAPI";
+import fetchImages from "./Services/ImagesAPI";
 
 import "modern-normalize";
 import "./styles.css";
+
+// export default function App() {
+//   const [searchQuery, setSearchQuery] = useState('');
+//   const [images, setImages] = useState({});
+//   const [modalImage, setModalImage] = useState('');
+//   const [page, setPage] = useState(1);
+//   const [loader, setLoader] = useState(false);
+//   const [error, setError] = useState('');
+//   const isFirstRender = useRef(true);
+
+//   return (
+//       <>
+//         <Searchbar onSubmit={changeSearch} />
+
+//         <ImageGallery images={images} onClick={openModalImage} />
+
+//         {loader && <Loader />}
+
+//         {renderLoadButton && (
+//           <Button onClick={getImages} length={images.length} />
+//         )}
+
+//         {showModal && <Modal onClose={toggleModal} image={modalImage} />}
+//       </>
+//     );
+//  }
 
 class App extends Component {
   state = {
@@ -41,12 +68,10 @@ class App extends Component {
 
   getImages = () => {
     const { page, searchQuery } = this.state;
-    const options = { searchQuery, page };
 
     this.setState({ loader: true });
 
-    imageAPI
-      .fetchImages(options)
+    fetchImages(searchQuery, page)
       .then((images) => {
         this.setState((prevState) => ({
           images: [...prevState.images, ...images],
